@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mi-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo-data:/data/db
+
+  mi-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mi-app
+    depends_on:
+      - mongo
+    ports:
+      - "5000:5000"
